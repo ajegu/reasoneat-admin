@@ -14,10 +14,14 @@ import router from './router'
 
 import '@/icons' // icon
 
+import { keycloak } from '@/utils/authenticate'
+
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
+
+keycloak.init({ onLoad: 'login-required' })
 
 new Vue({
   el: '#app',

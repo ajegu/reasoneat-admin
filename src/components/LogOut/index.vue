@@ -3,10 +3,12 @@
 </template>
 
 <script>
+import { keycloak } from '@/utils/authenticate'
+
 export default {
   methods: {
     logout: () => {
-      console.log('logout ')
+      keycloak.logout()
     }
   }
 }
