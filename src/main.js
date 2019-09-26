@@ -21,11 +21,16 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
-keycloak.init({ onLoad: 'login-required' })
-
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+keycloak.init({ onLoad: 'login-required' }).success(auth => {
+  if (!auth) {
+    console.log("erreur de l'authentification")
+  }
+  const roles = keycloak.resourceAccess.vue !== undefined ? keycloak.resourceAccess.vue.roles : []
+  store.commit('user/SET_ROLES', roles)
+  new Vue({
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
+  })
 })
