@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.2-beta1" last-position="0,130" last-zoom="1" max-obj-count="6"
+	 default-schema="public" default-owner="reasoneat_dba">
+<role name="reasoneat_dba">
+</role>
+
+<database name="reasoneat" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layer="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="category" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="public"/>
+	<role name="reasoneat_dba"/>
+	<position x="840" y="180"/>
+	<column name="category_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="header_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="footer_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="image">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="category_pk" type="pk-constr" table="public.category">
+		<columns names="category_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="product" layer="0" collapse-mode="2" max-obj-count="7">
+	<schema name="public"/>
+	<role name="reasoneat_dba"/>
+	<position x="840" y="440"/>
+	<column name="product_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="header_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="footer_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="image" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="category_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="product_pk" type="pk-constr" table="public.product">
+		<columns names="product_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="season" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="public"/>
+	<role name="reasoneat_dba"/>
+	<position x="120" y="160"/>
+	<column name="season_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="header_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="footer_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="image">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="season_pk" type="pk-constr" table="public.season">
+		<columns names="season_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="month" layer="0" collapse-mode="2" max-obj-count="7">
+	<schema name="public"/>
+	<role name="reasoneat_dba"/>
+	<position x="100" y="420"/>
+	<column name="month_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="header_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="footer_text">
+		<type name="text" length="0"/>
+	</column>
+	<column name="image">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="season_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="month_pk" type="pk-constr" table="public.month">
+		<columns names="month_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="product_month" layer="0" collapse-mode="2" max-obj-count="3">
+	<schema name="public"/>
+	<role name="reasoneat_dba"/>
+	<position x="460" y="440"/>
+	<column name="product_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="month_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="product_month_pk" type="pk-constr" table="public.product_month">
+		<columns names="product_id,month_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_product_category" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.category" table="public.product">
+	<columns names="category_id" ref-type="src-columns"/>
+	<columns names="category_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_month_season" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.season" table="public.month">
+	<columns names="season_id" ref-type="src-columns"/>
+	<columns names="season_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_product_many_month" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.product" table="public.product_month">
+	<columns names="product_id" ref-type="src-columns"/>
+	<columns names="product_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_month_many_product" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.month" table="public.product_month">
+	<columns names="month_id" ref-type="src-columns"/>
+	<columns names="month_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_product_month" type="relfk" layer="0"
+	 src-table="public.product_month"
+	 dst-table="public.product" reference-fk="fk_product_many_month"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="3.63751" y="8.17265"/>
+	</label>
+</relationship>
+
+<relationship name="rel_month_product" type="relfk" layer="0"
+	 src-table="public.product_month"
+	 dst-table="public.month" reference-fk="fk_month_many_product"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-9.52273" y="-1.81951"/>
+	</label>
+</relationship>
+
+<relationship name="rel_month_season" type="relfk" layer="0"
+	 src-table="public.month"
+	 dst-table="public.season" reference-fk="fk_month_season"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_product_category" type="relfk" layer="0"
+	 src-table="public.product"
+	 dst-table="public.category" reference-fk="fk_product_category"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
