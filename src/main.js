@@ -25,7 +25,7 @@ keycloak.init({ onLoad: 'login-required' }).success(auth => {
   if (!auth) {
     console.log("erreur de l'authentification")
   }
-  const roles = keycloak.resourceAccess.vue !== undefined ? keycloak.resourceAccess.vue.roles : []
+  const roles = keycloak.resourceAccess.reasoneat !== undefined ? keycloak.resourceAccess.reasoneat.roles : []
   store.commit('user/SET_ROLES', roles)
   new Vue({
     el: '#app',
