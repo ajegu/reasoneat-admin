@@ -51,6 +51,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/category',
+    component: Layout,
+    children: [
+      {
+        path: 'category',
+        name: 'Catégorie',
+        component: () => import('@/views/category/index'),
+        meta: { title: 'Catégorie', icon: 'dashboard', role: 'user' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

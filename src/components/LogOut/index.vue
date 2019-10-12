@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="logout">Déconnexion</el-button>
+  <el-button class="btn-logout" @click="logout">Déconnexion</el-button>
 </template>
 
 <script>
@@ -13,3 +13,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .btn-logout {
+    margin-right: 1em;
+  }
+</style>

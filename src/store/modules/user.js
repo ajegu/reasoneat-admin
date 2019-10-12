@@ -1,3 +1,5 @@
+import { SET_ROLES } from '@/store/mutation-types'
+
 const state = {
   roles: []
 }
@@ -8,7 +10,7 @@ const mutations = {
    * @param {*} state
    * @param Array roles
    */
-  SET_ROLES: (state, roles) => {
+  [SET_ROLES]: (state, roles) => {
     state.roles = roles
   }
 }
