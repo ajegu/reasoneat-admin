@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 
 keycloak.init({ onLoad: 'login-required' }).success(auth => {
   if (!auth) {
-    console.log("erreur de l'authentification")
+    console.error("erreur de l'authentification")
   }
   const roles = keycloak.resourceAccess.reasoneat !== undefined ? keycloak.resourceAccess.reasoneat.roles : []
   store.commit('user/SET_ROLES', roles)

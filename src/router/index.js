@@ -59,7 +59,7 @@ export const constantRoutes = [
         path: 'category',
         name: 'Catégorie',
         component: () => import('@/views/category/index'),
-        meta: { title: 'Catégorie', icon: 'dashboard', role: 'user' }
+        meta: { title: 'Catégorie', icon: 'form', role: 'user' }
       }
     ]
   },
