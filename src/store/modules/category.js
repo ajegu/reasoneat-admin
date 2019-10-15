@@ -20,6 +20,7 @@ const actions = {
     })
   },
   async add(store, form) {
+    console.log(form)
     return axios.post('http://localhost:8080/categories', JSON.stringify(form))
   }
 }
