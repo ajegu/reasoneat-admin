@@ -1,4 +1,4 @@
-import { SET_ROLES } from '@/store/mutation-types'
+import { SET_ROLES } from '@/store/mutations'
 
 const state = {
   roles: []

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table v-loading="listLoading" class="category-list" :data="data" :empty-text="loadingText" border fit highlight-current-row>
+    <el-table v-loading="loading" class="category-list" :data="categoryList" :empty-text="loadingText" border fit highlight-current-row>
       <el-table-column prop="id" label="ID" width="300" />
       <el-table-column prop="name" label="Nom" />
       <el-table-column label="Créé le" width="200" align="center">
@@ -15,18 +15,29 @@
           <span style="margin-left: 0.25em">{{ scope.row.updatedAt | parseDate }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Actions" align="center" width="250" class-name="small-padding fixed-width">
-        <el-button type="primary" size="mini" icon="el-icon-edit">Modifier</el-button>
-        <el-button size="mini" type="danger" icon="el-icon-delete">Supprimer</el-button>
+      <el-table-column label="Actions" width="250" class-name="small-padding fixed-width" align="center">
+        <template slot-scope="scope">
+          <el-row>
+            <category-edit :category-id="scope.row.id" />
+            <el-button size="mini" type="danger" icon="el-icon-delete">Supprimer</el-button>
+          </el-row>
+        </template>
       </el-table-column>
     </el-table>
+    <category-form />
   </div>
 </template>
 <script>
-import store from '@/store'
 import { isNull } from 'util'
+import CategoryForm from '@/views/category/form/index'
+import CategoryEdit from '@/views/category/edit/index'
+import { CATEGORY_API_LOAD } from '@/store/actions'
 export default {
   name: 'CategoryList',
+  components: {
+    CategoryEdit,
+    CategoryForm
+  },
   filters: {
     parseDate(value) {
       if (!isNull(value)) {
@@ -37,20 +48,25 @@ export default {
   },
   data() {
     return {
-      listLoading: true,
+      loading: false,
       loadingText: 'Chargement en cours'
     }
   },
   computed: {
-    data() {
-      return store.state.category.data
+    categoryList() {
+      return this.$store.getters.categoryList
     }
   },
-  created() {
-    setTimeout(() => {
-      this.listLoading = false
-      store.dispatch('category/load')
-    }, 1.5 * 1000)
+  async created() {
+    this.loading = true
+    try {
+      await this.$store.dispatch(`category/${CATEGORY_API_LOAD}`)
+    } catch(error) {
+      this.loadingText = 'Impossible d\'afficher les catégories'
+      console.error(error)
+    }
+
+    this.loading = false
   }
 }
 </script>
