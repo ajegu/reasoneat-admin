@@ -7,7 +7,9 @@ import {
 import {
   CATEGORY_API_LOAD,
   CATEGORY_FORM_UPDATE,
-  CATEGORY_API_SAVE
+  CATEGORY_API_SAVE,
+  CATEGORY_FIND,
+  CATEGORY_API_DELETE
 } from '@/store/actions'
 import axios from '@/utils/axios'
 import { Notification } from 'element-ui'
@@ -52,19 +54,30 @@ const actions = {
    * @param {object} store
    * @param {string} categoryId
    */
-  [CATEGORY_FORM_UPDATE]({ commit, state }, categoryId) {
+  async [CATEGORY_FORM_UPDATE]({ commit, state, dispatch }, categoryId) {
+    const categoryUpdated = await dispatch(CATEGORY_FIND, categoryId)
+    commit(SET_CATEGORY_FORM_DATA, categoryUpdated)
+  },
+  /**
+   * Récupère une catégorie par son id (immutable)
+   * @param {object} store
+   * @param {string} categoryId
+   * @returns {object} categoryFinded
+   */
+  [CATEGORY_FIND]({ state }, categoryId) {
+    let categoryFinded = null
     state.list.map((category) => {
       if (category.id === categoryId) {
-        const categoryUpdated = { ...category }
-        commit(SET_CATEGORY_FORM_DATA, categoryUpdated)
+        categoryFinded = { ...category }
       }
     })
+    return categoryFinded
   },
   /**
    *
    * @param {object} store
    */
-  async [CATEGORY_API_SAVE]({ commit, state, dispatch }) {
+  async [CATEGORY_API_SAVE]({ commit, state }) {
     try {
       if (isNullOrUndefined(state.formData.id)) {
         const response = await axios.post('http://localhost:8080/categories', JSON.stringify(state.formData))
@@ -95,6 +108,31 @@ const actions = {
           commit(SET_CATEGORY_FORM_ERROR, error)
         }
       }
+      return Promise.reject(failure)
+    }
+  },
+  /**
+   * Supprime la catégorie par l'api
+   * @param {object} store
+   * @param {string} categoryId
+   */
+  async [CATEGORY_API_DELETE]({ commit }, categoryId) {
+    try {
+      await axios.delete(`http://localhost:8080/categories/${categoryId}`)
+      const categories = []
+      state.list.map((category, i) => {
+        if (category.id !== categoryId) {
+          categories.push(category)
+        }
+      })
+
+      commit(SET_CATEGORY_LIST, categories)
+    } catch (failure) {
+      console.error(failure)
+      Notification.error({
+        title: 'Catégories',
+        message: 'Une erreur est survenu lors de la suppression de la catégorie'
+      })
       return Promise.reject(failure)
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <el-button type="primary" size="mini" icon="el-icon-edit" :loading="loading" @click="showFormDialog">Modifier</el-button>
+  <el-button type="primary" size="mini" icon="el-icon-edit" @click="showFormDialog">Modifier</el-button>
 </template>
 
 <script>
@@ -13,16 +13,11 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      loading: false
-    }
-  },
   methods: {
     /**
      * Affiche le formulaire avec les données de la catégorie à modifier
      */
-    async showFormDialog() {
+    showFormDialog() {
       this.$store.dispatch(`category/${CATEGORY_FORM_UPDATE}`, this.categoryId)
       this.$store.commit(`category/${SET_CATEGORY_DIALOG_FORM_VISIBLE}`, true)
     }

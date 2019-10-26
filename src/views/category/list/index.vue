@@ -23,7 +23,7 @@
         <template slot-scope="scope">
           <el-row>
             <category-edit :category-id="scope.row.id" />
-            <el-button size="mini" type="danger" icon="el-icon-delete">Supprimer</el-button>
+            <category-delete :category-id="scope.row.id" />
           </el-row>
         </template>
       </el-table-column>
@@ -35,12 +35,14 @@
 import { isNull } from 'util'
 import CategoryForm from '@/views/category/form/index'
 import CategoryEdit from '@/views/category/edit/index'
+import CategoryDelete from '@/views/category/delete/index'
 import { CATEGORY_API_LOAD } from '@/store/actions'
 export default {
   name: 'CategoryList',
   components: {
     CategoryEdit,
-    CategoryForm
+    CategoryForm,
+    CategoryDelete
   },
   filters: {
     parseDate(value) {
