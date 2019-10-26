@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-table v-loading="loading" class="category-list" :data="categoryList" :empty-text="loadingText" border fit highlight-current-row>
-      <el-table-column prop="id" label="ID" width="300" />
+      <el-table-column label="Image" width="80" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.image" height="40">
+        </template>
+      </el-table-column>
       <el-table-column prop="name" label="Nom" />
       <el-table-column label="Créé le" width="200" align="center">
         <template slot-scope="scope">
@@ -61,7 +65,7 @@ export default {
     this.loading = true
     try {
       await this.$store.dispatch(`category/${CATEGORY_API_LOAD}`)
-    } catch(error) {
+    } catch (error) {
       this.loadingText = 'Impossible d\'afficher les catégories'
       console.error(error)
     }

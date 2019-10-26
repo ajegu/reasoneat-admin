@@ -11,7 +11,7 @@ import {
 } from '@/store/actions'
 import axios from '@/utils/axios'
 import { Notification } from 'element-ui'
-import { isNullOrUndefined } from 'util'
+import { isNullOrUndefined, isNull } from 'util'
 import { Promise } from 'q'
 
 /**
@@ -133,9 +133,13 @@ const mutations = {
    * @param {object} error
    */
   [SET_CATEGORY_FORM_ERROR]: (state, error) => {
-    const formError = { ...state.formError }
-    formError[error.field] = error.message
-    state.formError = formError
+    if (isNull(error)) {
+      state.formError = {}
+    } else {
+      const formError = { ...state.formError }
+      formError[error.field] = error.message
+      state.formError = formError
+    }
   }
 }
 

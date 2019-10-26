@@ -32,7 +32,7 @@
 
 <script>
 import { isUndefined } from 'util'
-import { SET_CATEGORY_DIALOG_FORM_VISIBLE } from '@/store/mutations'
+import { SET_CATEGORY_DIALOG_FORM_VISIBLE, SET_CATEGORY_FORM_ERROR } from '@/store/mutations'
 import { CATEGORY_API_SAVE } from '@/store/actions'
 export default {
   name: 'CategoryForm',
@@ -138,6 +138,7 @@ export default {
       if (this.$refs['categoryForm']) {
         this.$refs['categoryForm'].resetFields()
       }
+      this.$store.commit(`category/${SET_CATEGORY_FORM_ERROR}`, null)
     }
   }
 }
