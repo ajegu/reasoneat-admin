@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { CATEGORY_FORM_UPDATE } from '@/store/actions'
-import { SET_CATEGORY_DIALOG_FORM_VISIBLE } from '@/store/mutations'
+import { CATEGORY_FIND } from '@/store/actions'
+import { SET_CATEGORY_FORM_DATA, SET_CATEGORY_DIALOG_FORM_VISIBLE } from '@/store/mutations'
 export default {
   name: 'CategoryEdit',
   props: {
@@ -17,8 +17,9 @@ export default {
     /**
      * Affiche le formulaire avec les données de la catégorie à modifier
      */
-    showFormDialog() {
-      this.$store.dispatch(`category/${CATEGORY_FORM_UPDATE}`, this.categoryId)
+    async showFormDialog() {
+      const categoryUpdated = await this.$store.dispatch(`category/${CATEGORY_FIND}`, this.categoryId)
+      this.$store.commit(`category/${SET_CATEGORY_FORM_DATA}`, categoryUpdated)
       this.$store.commit(`category/${SET_CATEGORY_DIALOG_FORM_VISIBLE}`, true)
     }
   }

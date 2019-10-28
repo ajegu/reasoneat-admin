@@ -6,7 +6,6 @@ import {
 } from '@/store/mutations'
 import {
   CATEGORY_API_LOAD,
-  CATEGORY_FORM_UPDATE,
   CATEGORY_API_SAVE,
   CATEGORY_FIND,
   CATEGORY_API_DELETE
@@ -48,15 +47,6 @@ const actions = {
       })
       return Promise.reject(failure)
     }
-  },
-  /**
-   * Récupère et clone la catégorie à modifier
-   * @param {object} store
-   * @param {string} categoryId
-   */
-  async [CATEGORY_FORM_UPDATE]({ commit, state, dispatch }, categoryId) {
-    const categoryUpdated = await dispatch(CATEGORY_FIND, categoryId)
-    commit(SET_CATEGORY_FORM_DATA, categoryUpdated)
   },
   /**
    * Récupère une catégorie par son id (immutable)
