@@ -57,7 +57,7 @@ const actions = {
   [CATEGORY_FIND]({ state }, categoryId) {
     let categoryFinded = null
     state.list.map((category) => {
-      if (category.id === categoryId) {
+      if (category.category_id === categoryId) {
         categoryFinded = { ...category }
       }
     })
@@ -69,16 +69,16 @@ const actions = {
    */
   async [CATEGORY_API_SAVE]({ commit, state }) {
     try {
-      if (isNullOrUndefined(state.formData.id)) {
+      if (isNullOrUndefined(state.formData.category_id)) {
         const response = await axios.post('http://localhost:8080/categories', JSON.stringify(state.formData))
         const categories = state.list.map(category => ({ ...category }))
         categories.push(response.data)
         commit(SET_CATEGORY_LIST, categories)
       } else {
-        const response = await axios.put(`http://localhost:8080/categories/${state.formData.id}`, JSON.stringify(state.formData))
+        const response = await axios.put(`http://localhost:8080/categories/${state.formData.category_id}`, JSON.stringify(state.formData))
         const categoryUpdated = response.data
         const categories = state.list.map((category) => {
-          if (category.id === state.formData.id) {
+          if (category.category_id === state.formData.category_id) {
             return categoryUpdated
           }
           return category
@@ -111,7 +111,7 @@ const actions = {
       await axios.delete(`http://localhost:8080/categories/${categoryId}`)
       const categories = []
       state.list.map((category, i) => {
-        if (category.id !== categoryId) {
+        if (category.category_id !== categoryId) {
           categories.push(category)
         }
       })

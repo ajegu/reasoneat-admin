@@ -22,8 +22,8 @@
       <el-table-column label="Actions" width="250" class-name="small-padding fixed-width" align="center">
         <template slot-scope="scope">
           <el-row>
-            <category-edit :category-id="scope.row.id" />
-            <category-delete :category-id="scope.row.id" />
+            <category-edit :category-id="scope.row.category_id" />
+            <category-delete :category-id="scope.row.category_id" />
           </el-row>
         </template>
       </el-table-column>

@@ -85,7 +85,7 @@ export default {
     title() {
       let title
       const category = this.$store.getters.categoryFormData
-      if (isUndefined(category.id)) {
+      if (isUndefined(category.category_id)) {
         title = 'Ajout d\'une catégorie'
       } else {
         title = `Modification de la catégorie ${category.name}`
@@ -100,7 +100,7 @@ export default {
     buttonAction() {
       let action
       const category = this.$store.getters.categoryFormData
-      if (isUndefined(category.id)) {
+      if (isUndefined(category.category_id)) {
         action = 'Créer'
       } else {
         action = 'Sauvegarder'
