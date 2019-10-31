@@ -10,13 +10,13 @@
       <el-table-column label="Créé le" width="200" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span style="margin-left: 0.25em">{{ scope.row.createdAt | parseDate }}</span>
+          <span style="margin-left: 0.25em">{{ scope.row.created_at | parseDate }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Modifié le" width="200" align="center">
-        <template v-if="scope.row.updatedAt" slot-scope="scope">
+        <template v-if="scope.row.updated_at" slot-scope="scope">
           <i class="el-icon-time" />
-          <span style="margin-left: 0.25em">{{ scope.row.updatedAt | parseDate }}</span>
+          <span style="margin-left: 0.25em">{{ scope.row.updated_at | parseDate }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Actions" width="250" class-name="small-padding fixed-width" align="center">

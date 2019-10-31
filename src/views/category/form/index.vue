@@ -13,12 +13,12 @@
         <el-input v-model="formData.image" autocomplete="off" placeholder="Exemple : http://mon-image.fr" />
       </el-form-item>
 
-      <el-form-item label="Texte de haut de page" prop="headerText" :label-width="formLabelWidth" :error="formError.headerText">
-        <el-input v-model="formData.headerText" type="textarea" autocomplete="off" />
+      <el-form-item label="Texte de haut de page" prop="header_text" :label-width="formLabelWidth" :error="formError.headerText">
+        <el-input v-model="formData.header_text" type="textarea" autocomplete="off" />
       </el-form-item>
 
-      <el-form-item label="Texte de bas de page" prop="footerText" :label-width="formLabelWidth" :error="formError.footerText">
-        <el-input v-model="formData.footerText" type="textarea" autocomplete="off" />
+      <el-form-item label="Texte de bas de page" prop="footer_text" :label-width="formLabelWidth" :error="formError.footerText">
+        <el-input v-model="formData.footer_text" type="textarea" autocomplete="off" />
       </el-form-item>
 
       <el-row type="flex" justify="end">
@@ -45,10 +45,10 @@ export default {
           { required: true, message: 'Le libellé est obligatoire', trigger: 'blur' },
           { min: 3, max: 50, message: 'La taille doit être comprise entre 3 et 50 caractères', trigger: 'blur' }
         ],
-        headerText: [
+        header_text: [
           { min: 50, message: 'Le texte doit faire plus de 50 caractères', trigger: 'blur' }
         ],
-        footerText: [
+        footer_text: [
           { min: 50, message: 'Le texte doit faire plus de 50 caractères', trigger: 'blur' }
         ]
       }
@@ -85,7 +85,7 @@ export default {
     title() {
       let title
       const category = this.$store.getters.categoryFormData
-      if (isUndefined(category.category_id)) {
+      if (isUndefined(category.id)) {
         title = 'Ajout d\'une catégorie'
       } else {
         title = `Modification de la catégorie ${category.name}`
