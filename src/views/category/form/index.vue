@@ -114,8 +114,8 @@ export default {
      * Ferme la fenêtre et réinitialise formulaire
      */
     closeDialogForm() {
-      this.resetForm()
       this.$store.commit(`category/${SET_CATEGORY_DIALOG_FORM_VISIBLE}`, false)
+      this.resetForm()
     },
     /**
      * Soumission du formulaire vers l'api
@@ -124,8 +124,7 @@ export default {
       this.loading = true
       try {
         await this.$store.dispatch(`category/${CATEGORY_API_SAVE}`)
-        this.resetForm()
-        this.$store.commit(`category/${SET_CATEGORY_DIALOG_FORM_VISIBLE}`, false)
+        this.closeDialogForm()
       } catch (error) {
         console.error(error)
       }

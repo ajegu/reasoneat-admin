@@ -3,11 +3,11 @@
     <el-table v-loading="loading" class="category-list" :data="categoryList" :empty-text="loadingText" border fit highlight-current-row>
       <el-table-column label="Image" width="80" align="center">
         <template slot-scope="scope">
-          <img :src="scope.row.image" height="40">
+          <img v-if="scope.row.image" :src="scope.row.image" height="40">
         </template>
       </el-table-column>
       <el-table-column prop="name" label="Nom" />
-      <el-table-column label="Créé le" width="200" align="center">
+      <el-table-column label="Créé le" width="200" align="center" prop="created_at">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span style="margin-left: 0.25em">{{ scope.row.created_at | parseDate }}</span>
@@ -32,11 +32,11 @@
   </div>
 </template>
 <script>
-import { isNull } from 'util'
 import CategoryForm from '@/views/category/form/index'
 import CategoryEdit from '@/views/category/edit/index'
 import CategoryDelete from '@/views/category/delete/index'
 import { CATEGORY_API_LOAD } from '@/store/actions'
+import { parseDate } from '@/utils/date'
 export default {
   name: 'CategoryList',
   components: {
@@ -45,17 +45,12 @@ export default {
     CategoryDelete
   },
   filters: {
-    parseDate(value) {
-      if (!isNull(value)) {
-        const date = new Date(value)
-        return `${date.toLocaleDateString()} à ${date.toLocaleTimeString()}`
-      }
-    }
+    parseDate
   },
   data() {
     return {
       loading: false,
-      loadingText: 'Chargement en cours'
+      loadingText: 'Chargement des catégories en cours'
     }
   },
   computed: {

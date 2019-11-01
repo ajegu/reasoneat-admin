@@ -22,8 +22,7 @@ const state = {
   list: [],
   dialogFormVisible: false,
   formData: {},
-  formError: {},
-  loading: false
+  formError: {}
 }
 
 /**
@@ -36,7 +35,7 @@ const actions = {
    */
   async [CATEGORY_API_LOAD]({ commit }) {
     try {
-      const response = await axios.get('http://localhost:8080/categories')
+      const response = await axios.get('/categories')
       commit(SET_CATEGORY_LIST, response.data.content)
     } catch (failure) {
       console.error(failure)
@@ -70,12 +69,12 @@ const actions = {
   async [CATEGORY_API_SAVE]({ commit, state }) {
     try {
       if (isNullOrUndefined(state.formData.category_id)) {
-        const response = await axios.post('http://localhost:8080/categories', JSON.stringify(state.formData))
+        const response = await axios.post('/categories', JSON.stringify(state.formData))
         const categories = state.list.map(category => ({ ...category }))
         categories.push(response.data)
         commit(SET_CATEGORY_LIST, categories)
       } else {
-        const response = await axios.put(`http://localhost:8080/categories/${state.formData.category_id}`, JSON.stringify(state.formData))
+        const response = await axios.put(`/categories/${state.formData.category_id}`, JSON.stringify(state.formData))
         const categoryUpdated = response.data
         const categories = state.list.map((category) => {
           if (category.category_id === state.formData.category_id) {
@@ -108,7 +107,7 @@ const actions = {
    */
   async [CATEGORY_API_DELETE]({ commit }, categoryId) {
     try {
-      await axios.delete(`http://localhost:8080/categories/${categoryId}`)
+      await axios.delete(`/categories/${categoryId}`)
       const categories = []
       state.list.map((category, i) => {
         if (category.category_id !== categoryId) {

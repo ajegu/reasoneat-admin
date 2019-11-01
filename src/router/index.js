@@ -56,10 +56,22 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'category',
+        path: '/category',
         name: 'Catégorie',
         component: () => import('@/views/category/index'),
         meta: { title: 'Catégorie', icon: 'form', role: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/product',
+    component: Layout,
+    children: [
+      {
+        path: '/product',
+        name: 'Produit',
+        component: () => import('@/views/product/index'),
+        meta: { title: 'Produit', icon: 'form', role: 'user' }
       }
     ]
   },
