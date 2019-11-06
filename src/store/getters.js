@@ -13,6 +13,7 @@ const getters = {
   categoryFormError: state => state.category.formError,
 
   // Product
-  productList: state => state.product.list
+  productList: state => state.product.list,
+  productTotal: state => state.product.total
 }
 export default getters

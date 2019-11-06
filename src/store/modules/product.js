@@ -2,7 +2,8 @@ import {
   PRODUCT_API_LOAD
 } from '@/store/actions'
 import {
-  SET_PRODUCT_LIST
+  SET_PRODUCT_LIST,
+  SET_PRODUCT_TOTAL
 } from '@/store/mutations'
 import axios from '@/utils/axios'
 import { Notification } from 'element-ui'
@@ -15,7 +16,8 @@ const state = {
   dialogFormVisible: false,
   formData: {},
   formError: {},
-  loading: false
+  loading: false,
+  total: 0
 }
 
 /**
@@ -25,11 +27,21 @@ const actions = {
   /**
    * Chargement des produits depuis l'api
    * @param {object} store
+   * @param {int} page
    */
-  async [PRODUCT_API_LOAD]({ commit }) {
+  async [PRODUCT_API_LOAD]({ commit }, params) {
+    const page = params.page - 1
+    const sortProperty = params.prop
+    let sortDirection = 'DESC'
+    if (params.order === 'ascending') {
+      sortDirection = 'ASC'
+    }
+
+    const url = `/products?page=${page}&sortProperty=${sortProperty}&sortDirection=${sortDirection}`
     try {
-      const response = await axios.get('/products')
+      const response = await axios.get(url)
       commit(SET_PRODUCT_LIST, response.data.content)
+      commit(SET_PRODUCT_TOTAL, response.data.totalElements)
     } catch (failure) {
       console.error(failure)
       // On affiche une notification en cas d'erreur de l'api
@@ -49,9 +61,18 @@ const mutations = {
   /**
    * Persiste la liste des produits dans le state
    * @param {object} state
+   * @param {array} products
    */
   [SET_PRODUCT_LIST]: (state, products) => {
     state.list = products
+  },
+  /**
+   * Persiste le total de produits
+   * @param {object} state
+   * @param {int} total
+   */
+  [SET_PRODUCT_TOTAL]: (state, total) => {
+    state.total = total
   }
 }
 
