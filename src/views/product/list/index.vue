@@ -1,5 +1,20 @@
 <template>
   <div>
+    <el-card shadow="never" style="margin-bottom:10px">
+      <el-form :inline="true" :model="filterForm" @submit.prevent.native="loadProducts">
+        <el-form-item>
+          <el-input
+            v-model="filterForm.name"
+            placeholder="Rechercher par libellé"
+            clearable
+            autofocus
+            prefix-icon="el-icon-search"
+            @clear="loadProducts"
+          />
+        </el-form-item>
+        <el-button native-type="submit" type="primary" icon="el-icon-search" />
+      </el-form>
+    </el-card>
     <el-table
       v-loading="loading"
       class="product-list"
@@ -17,7 +32,7 @@
           <img v-if="scope.row.image" :src="scope.row.image" height="40">
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="Libellé" sortable="custom" />
+      <el-table-column prop="name" label="Libellé" sortable="custom" width="300" />
       <el-table-column label="Mois" width="250">
         <template slot-scope="scope">
           <span v-for="(month, index) in scope.row.months" :key="index">
@@ -36,7 +51,7 @@
           <span style="margin-left: 0.25em">{{ scope.row.updated_at | parseDate }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Actions" width="250" class-name="small-padding fixed-width" align="center">
+      <el-table-column label="Actions" class-name="small-padding fixed-width" align="center">
         <!-- <template slot-scope="scope">
           <el-row>
             <category-edit :product-id="scope.row.product_id" />
@@ -69,7 +84,10 @@ export default {
       loadingText: 'Chargement des produits en cours',
       page: 1,
       prop: 'name',
-      order: 'ascending'
+      order: 'ascending',
+      filterForm: {
+        name: ''
+      }
     }
   },
   computed: {
@@ -96,7 +114,10 @@ export default {
         await this.$store.dispatch(`product/${PRODUCT_API_LOAD}`, {
           page: this.page,
           prop: this.prop,
-          order: this.order
+          order: this.order,
+          filters: {
+            name: this.filterForm.name
+          }
         })
       } catch (error) {
         this.loadingText = 'Impossible d\'afficher les produits'
@@ -124,3 +145,8 @@ export default {
   }
 }
 </script>
+<style>
+  .el-form-item {
+    margin: 0;
+  }
+</style>

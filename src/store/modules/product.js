@@ -37,7 +37,7 @@ const actions = {
       sortDirection = 'ASC'
     }
 
-    const url = `/products?page=${page}&sortProperty=${sortProperty}&sortDirection=${sortDirection}`
+    const url = `/products?page=${page}&sortProperty=${sortProperty}&sortDirection=${sortDirection}&filters=${encodeURIComponent(JSON.stringify(params.filters))}`
     try {
       const response = await axios.get(url)
       commit(SET_PRODUCT_LIST, response.data.content)
