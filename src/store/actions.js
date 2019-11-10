@@ -6,3 +6,6 @@ export const CATEGORY_API_DELETE = 'CATEGORY_API_DELETE'
 
 // Product
 export const PRODUCT_API_LOAD = 'PRODUCT_API_LOAD'
+
+// Month
+export const MONTH_API_LOAD = 'MONTH_API_LOAD'

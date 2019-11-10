@@ -10,3 +10,6 @@ export const SET_CATEGORY_FORM_ERROR = 'SET_CATEGORY_FORM_ERROR'
 // Product
 export const SET_PRODUCT_LIST = 'SET_PRODUCT_LIST'
 export const SET_PRODUCT_TOTAL = 'SET_PRODUCT_TOTAL'
+
+// Month
+export const SET_MONTH_LIST = 'SET_MONTH_LIST'

@@ -14,6 +14,9 @@ const getters = {
 
   // Product
   productList: state => state.product.list,
-  productTotal: state => state.product.total
+  productTotal: state => state.product.total,
+
+  // Month
+  monthList: state => state.month.list
 }
 export default getters

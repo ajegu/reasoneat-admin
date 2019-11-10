@@ -27,7 +27,7 @@ const actions = {
   /**
    * Chargement des produits depuis l'api
    * @param {object} store
-   * @param {int} page
+   * @param {object} params
    */
   async [PRODUCT_API_LOAD]({ commit }, params) {
     const page = params.page - 1

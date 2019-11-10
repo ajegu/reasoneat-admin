@@ -12,6 +12,9 @@
             @clear="loadProducts"
           />
         </el-form-item>
+        <el-form-item>
+          <month-select />
+        </el-form-item>
         <el-button native-type="submit" type="primary" icon="el-icon-search" />
       </el-form>
     </el-card>
@@ -73,8 +76,12 @@
 <script>
 import { parseDate } from '@/utils/date'
 import { PRODUCT_API_LOAD } from '@/store/actions'
+import MonthSelect from '@/components/MonthSelect'
 export default {
   name: 'ProductList',
+  components: {
+    MonthSelect
+  },
   filters: {
     parseDate
   },
@@ -86,7 +93,8 @@ export default {
       prop: 'name',
       order: 'ascending',
       filterForm: {
-        name: ''
+        name: '',
+        months: []
       }
     }
   },
