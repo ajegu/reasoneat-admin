@@ -13,7 +13,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <month-select />
+          <month-select v-model="filterForm.months" />
         </el-form-item>
         <el-button native-type="submit" type="primary" icon="el-icon-search" />
       </el-form>
@@ -117,6 +117,7 @@ export default {
      * Chargement de la liste des produits
      */
     async loadProducts() {
+      console.log(this.filterForm)
       this.loading = true
       try {
         await this.$store.dispatch(`product/${PRODUCT_API_LOAD}`, {

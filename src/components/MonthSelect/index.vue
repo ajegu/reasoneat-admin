@@ -1,9 +1,10 @@
 <template>
   <el-select
-    v-model="months"
-    multiple
-    :loading="loading"
+    :value="value"
     placeholder="Choisissez un ou plusieurs mois"
+    :loading="loading"
+    multiple
+    @change="change"
   >
     <el-option
       v-for="month in monthList"
@@ -18,6 +19,12 @@
 import { MONTH_API_LOAD } from '@/store/actions'
 export default {
   name: 'MonthSelect',
+  props: {
+    value: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       months: [],
@@ -36,6 +43,12 @@ export default {
     this.loadMonths()
   },
   methods: {
+    /**
+     * Emet le changement de valeur au composant parent
+     */
+    change(val) {
+      this.$emit('input', val)
+    },
     /**
      * Chargement de la liste des mois
      */
