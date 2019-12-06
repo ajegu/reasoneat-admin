@@ -18,5 +18,6 @@ const getters = {
 
   // Month
   monthList: state => state.month.list
+
 }
 export default getters
