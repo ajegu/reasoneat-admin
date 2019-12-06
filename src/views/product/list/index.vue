@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item>
           <month-select v-model="filterForm.months" />
-          <category-select v-model="filterForm.categories" />
+          <category-select v-model="filterForm.category" />
         </el-form-item>
         <el-button native-type="submit" type="primary" icon="el-icon-search" />
       </el-form>
@@ -71,6 +71,8 @@
       :total="productTotal"
       @current-change="currentChange"
     />
+
+    <product-form />
   </div>
 </template>
 
@@ -79,11 +81,13 @@ import { parseDate } from '@/utils/date'
 import { PRODUCT_API_LOAD } from '@/store/actions'
 import MonthSelect from '@/components/MonthSelect'
 import CategorySelect from '@/components/CategorySelect'
+import ProductForm from '@/views/product/form/index'
 export default {
   name: 'ProductList',
   components: {
     MonthSelect,
-    CategorySelect
+    CategorySelect,
+    ProductForm
   },
   filters: {
     parseDate
@@ -98,7 +102,7 @@ export default {
       filterForm: {
         name: '',
         months: [],
-        categories: []
+        category: null
       }
     }
   },
@@ -130,7 +134,7 @@ export default {
           filters: {
             name: this.filterForm.name,
             months: this.filterForm.months,
-            categories: this.filterForm.categories
+            category: this.filterForm.category
           }
         })
       } catch (error) {

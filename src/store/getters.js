@@ -15,6 +15,9 @@ const getters = {
   // Product
   productList: state => state.product.list,
   productTotal: state => state.product.total,
+  productDialogFormVisible: state => state.product.dialogFormVisible,
+  productFormData: state => state.product.formData,
+  productFormError: state => state.product.formError,
 
   // Month
   monthList: state => state.month.list

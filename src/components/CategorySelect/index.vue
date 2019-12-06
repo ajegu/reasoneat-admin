@@ -1,9 +1,8 @@
 <template>
   <el-select
     :value="value"
-    placeholder="Choisissez une ou plusieurs catégories"
+    placeholder="Choisissez une catégorie"
     :loading="loading"
-    multiple
     @change="change"
   >
     <el-option
@@ -21,8 +20,8 @@ export default {
   name: 'CategorySelect',
   props: {
     value: {
-      type: Array,
-      default: () => []
+      type: String,
+      default: () => ''
     }
   },
   data() {
