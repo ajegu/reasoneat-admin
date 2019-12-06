@@ -117,7 +117,6 @@ export default {
      * Chargement de la liste des produits
      */
     async loadProducts() {
-      console.log(this.filterForm)
       this.loading = true
       try {
         await this.$store.dispatch(`product/${PRODUCT_API_LOAD}`, {
@@ -125,7 +124,8 @@ export default {
           prop: this.prop,
           order: this.order,
           filters: {
-            name: this.filterForm.name
+            name: this.filterForm.name,
+            months: this.filterForm.months
           }
         })
       } catch (error) {
